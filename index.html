@@ -4,9 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- bootstrap5.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" 
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Random Fight Generator</title>
 </head>
 <body>
-    
+    <!-- Random fight output -->
+    <div class="random-fight">
+        <div class="first-fighter">
+            <!-- first fighters name -->
+            <h1>Fighter 1</h1>
+            <!-- first fighters weapons -->
+            <h1>Weapon</h1>
+        </div>
+        <div id="vs">
+            <!-- VS -->
+            <h1>VS</h1>
+        </div>
+        <div class="second-fighter">
+            <!-- first fighters name -->
+            <h1>Fighter 1</h1>
+            <!-- first fighters weapons -->
+            <h1>Weapon</h1>
+        </div>
+    </div>
+
+    <!-- generate fight button -->
+    <form id="generate-fight">    
+        <input type="submit" value="Generate Fight">
+    </form>
+    <!-- add new fighter form -->
+    <form class="new-fighter-form">
+        <label>Add Fighter:</label>
+        <Input class="new-fighter-input" type="text" placeholder="Enter Fighter Name"></Input>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- list of currently added fighters -->
+
+
+
+
+
+
+    <!-- Bootstrap 5.2 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <!-- my JS -->
+    <script src="app.js"></script>
 </body>
 </html>

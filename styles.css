@@ -1,0 +1,25 @@
+.random-fight {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+    margin-bottom: 5px;
+    border: 1px solid red;
+}
+
+#vs {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.new-fighter-form {
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+}
+
+.new-fighter-input {
+    border: none;
+    border-bottom: 1px solid black;
+}
