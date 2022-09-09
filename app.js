@@ -1,27 +1,41 @@
-//Add new fighter
-    //take fighter input
-    //add to fighter array
-    //clear input fields
-class Fighter {
-    constructor(name) {
-        this.name = name;
-    }
-}
 
 
+
+
+
+//HARD CODED FIGHTER OBJECT
+let fighter = {};
 
 //Remove fighter
     //remove fighter from fighter array
 
 
+class UI {
+    addFighterToList(fighter){
+
+    }
+
+    deleteFighter(target){
+        if(target.className === 'delete'){
+            target.parentElement.parentElement.remove();
+        }
+    }
+
+    clearFields() {
+        document.getElementById('fighter').value = '';
+        document.getElementById('rank').value = '';
+    }
+}
+
+
+
+
 class Random {
     //Random Weapon Selection function
-    //Blue/Red/Shield/Ranged/Pole/FightersChoice
-    //random selection from 0 to 6 using if statement to filter between options
+    //random selection from 0 to 6 using if statement to filter between options of Blue/Red/Shield/Ranged/Pole/FightersChoice
     //return fighters selected weapon
     weapon() {
         let randomSelection = Math.floor(Math.random()*6);
-        console.log(randomSelection);
         if (randomSelection < 1) {
             console.log('BLUE');
         } else if (randomSelection < 2) {
@@ -38,26 +52,106 @@ class Random {
     }
 
     //Random Fighter Selection
-    //uses map of fighterArray.length
-    //random floor selection from 0 to fighterArray.length to filter out first fighter
-    //remove first fighter from fighterArray map
-    //random floor selection from 0 to new map fighterArray.length to filter out second fighter
-    //remove second fighter from fighterArray map
-    //return fighters names
-    fighter() {
-
+    //uses Object.key(fighters) to create array 
+    //random floor selection from 0 to fighterArray.length to select fighter
+    //return fighters names and remove first fighter from fighterArray map
+    fighter(fighterArray) {
+        let randomSelection = Math.floor(Math.random() * fighterArray.length);
+        //this line is the selected fighter
+        console.log(fighterArray[randomSelection]);
+        //remove selected fighter from current fight pool
+        fighterArray.splice(randomSelection, 1);
     }
 }
 
 
 //Notes: Object with keys  
-//Call the Object.keys() method to get an array of the object's keys
+//Call the Object.keys(object) method to get an array of the object's keys
 //Use the Math.floor() and Math.random() functions to get a random index of the array
 //Use the random index to access one of the object's properties.
 
 
 
-//>>>WANTS<<<
+
+
+
+
+
+
+
+
+
+// EVENT LISTENERS
+
+
+
+
+
+
+
+
+//Event Listeners for Random Fight Generation
+    //uses Object.key(fighters) to create array
+    //uses Random methods to select fighters and weapons
+document.getElementById('generate-fight').addEventListener('submit', function(e){
+    const random = new Random();
+    let fighterArray = Object.keys(fighter);
+    if (fighterArray.length > 1) {
+        random.fighter(fighterArray);
+        random.weapon();
+        random.fighter(fighterArray);
+        random.weapon();
+    } else {
+        //not enough fighters for generated fight alert
+        console.log("You need at least 2 fighters") 
+    }
+    e.preventDefault();
+    });
+
+
+
+
+//Event Listeners for Add New Fighter
+document.getElementById('add-fighter').addEventListener('submit', function(e){
+    //get fighter information
+    const ui = new UI();
+    const
+        newFighter = document.getElementById('fighter').value,
+        rank = document.getElementById('rank').value;
+    //add new fighter to fighter object
+    fighter[newFighter] = rank;
+    ui.clearFields();
+    
+    console.log(fighter);
+    e.preventDefault();
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //>>>WANTS<<<
+//Format fighter name and rank to be capitalized and uniform
 
 //Save Fighters to local
     //stringify JSON/fighterArray
@@ -66,34 +160,10 @@ class Random {
 
 //Choose which input fighters to randomly select from
     //push selected fighter from fighter array to selectedFighterArray
-//Choose team size
+
+    //Choose team size
     //
 
 //Random team size selection
 
-
 //tournament
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Event Listeners for random generation
-document.getElementById('generate-fight').addEventListener('submit', function(e){
-    const random = new Random();
-    random.weapon()
-    e.preventDefault;
-    });

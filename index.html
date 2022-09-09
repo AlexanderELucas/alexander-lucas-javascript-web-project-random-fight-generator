@@ -13,6 +13,7 @@
     <title>Random Fight Generator</title>
 </head>
 <body>
+
     <!-- Random fight output -->
     <div class="random-fight">
         <div class="first-fighter">
@@ -34,18 +35,26 @@
     </div>
 
     <!-- generate fight button -->
-    <form id="generate-fight">    
-        <input type="submit" value="Generate Fight">
+    <form id="generate-fight" class="container">    
+        <div class="d-grid gap-2 m-1">
+            <button type="submit" class="btn btn-primary">Generate Fight</button>
+        </div>
     </form>
+    
+    
     <!-- add new fighter form -->
-    <form class="new-fighter-form">
-        <label>Add Fighter:</label>
-        <Input class="new-fighter-input" type="text" placeholder="Enter Fighter Name"></Input>
-        <button type="submit">Submit</button>
+    <form id="add-fighter" class="container">
+        <div class="mb-3">
+            <label for="fighter" class="form-label">Add Fighter</label>
+            <Input id="fighter" class="form-control" type="text" placeholder="Enter Fighter Name"></Input>
+            <Input id="rank" class="form-control mt-2" type="text" placeholder="Enter Fighter Rank"></Input>
+        </div>
+        <div class="d-grid gap-2 m-1">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
-
     <!-- list of currently added fighters -->
-
+    
 
 
 
