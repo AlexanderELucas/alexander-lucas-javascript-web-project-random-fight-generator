@@ -15,22 +15,26 @@
 <body>
 
     <!-- Random fight output -->
-    <div class="random-fight">
-        <div class="first-fighter">
-            <!-- first fighters name -->
-            <h1>Fighter 1</h1>
-            <!-- first fighters weapons -->
-            <h1>Weapon</h1>
+    <div id="random-fight">
+        <div id="first-fighter">
+            <div id="fighter-one">
+                <!-- first fighters name -->
+                <h1>Fighter 1</h1>
+                <!-- first fighters weapons -->
+                <h1>Weapon</h1>
+            </div>
         </div>
         <div id="vs">
             <!-- VS -->
             <h1>VS</h1>
         </div>
-        <div class="second-fighter">
-            <!-- first fighters name -->
-            <h1>Fighter 1</h1>
-            <!-- first fighters weapons -->
-            <h1>Weapon</h1>
+        <div id="second-fighter">
+            <div id="fighter-two">
+                <!-- first fighters name -->
+                <h1>Fighter 2</h1>
+                <!-- first fighters weapons -->
+                <h1>Weapon</h1>
+            </div>
         </div>
     </div>
 
@@ -55,7 +59,24 @@
     </form>
     <!-- list of currently added fighters -->
     
-
+    <div class="wrapper container" id="fighter-table">
+        <table class="table overflow-scroll">
+            <thead>
+                <tr>
+                    <th>Fighter</th>
+                    <th>Rank</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="fighter-list">
+                <tr>
+                    <td>Beriadann</td>
+                    <td>Defender</td>
+                    <td><a href="#" class="remove">X</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 

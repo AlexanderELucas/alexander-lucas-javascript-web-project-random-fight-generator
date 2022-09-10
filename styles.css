@@ -1,9 +1,9 @@
-.random-fight {
+#random-fight {
     display: flex;
     justify-content: center;
     margin: 30px;
     margin-bottom: 5px;
-    border: 1px solid red;
+    border: 5px solid red;
 }
 
 #vs {
@@ -22,4 +22,9 @@
 .new-fighter-input {
     border: none;
     border-bottom: 1px solid black;
+}
+
+#fighter-table {
+    max-height: 50vh;
+    overflow-x: hidden;
 }
