@@ -1,3 +1,11 @@
+body {
+    background-color: #DFF3E4;
+}
+
+.btn {
+    background-color: #101935;
+}
+
 #random-fight {
     display: flex;
     justify-content: center;
@@ -25,6 +33,37 @@
 }
 
 #fighter-table {
-    max-height: 50vh;
+    max-height: 30vh;
     overflow-x: hidden;
+    
+}
+
+#fighter-list {
+    background-color: #F9B3D1;
+    border: 5px solid #101935;
+    
+}
+
+
+
+
+
+
+
+
+/* Alert div formatting */
+.alert {
+    color: aqua;
+    padding: 10px;
+    margin: 10px 5px 10px 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.success {
+    background-color: green;
+}
+
+.failure {
+    background-color: red;
 }

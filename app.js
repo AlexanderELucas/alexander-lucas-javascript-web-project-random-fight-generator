@@ -1,29 +1,23 @@
-
-
-
-
-
 //create fighterObject to store fighters and ranks
-let fighterObject = {};
 
 //methods to add fighters and remove fighters from fighterObject
 class Fighter {
+    //adds fighter to object
     addFighter(newFighter, rank) {
         fighterObject[newFighter] = rank;
         console.log(fighterObject);
     }
-
-    removeFighter() {
-
+    //removes fighter from object
+    removeFighter(target) {
+        if(target.className === 'remove'){
+            let fighterName = target.parentElement.previousElementSibling.previousElementSibling.textContent;
+            delete fighterObject[fighterName];
+            console.log(fighterName);
+            console.log(fighterObject)
+        }
     }
 
 }
-
-
-
-
-//Remove fighter
-    //remove fighter from fighter array
 
 //Used Traversey's Todo list guide to get this list to work correctly
 class UI {
@@ -47,7 +41,8 @@ class UI {
 
     clearFields() {
         document.getElementById('fighter').value = '';
-        document.getElementById('rank').value = '';
+        //resets rank field to "select fighter rank"
+        document.getElementById('rank').value = 'Select Fighter Rank';
     }
 
     clearFight() {
@@ -71,7 +66,7 @@ class UI {
         teamOne.appendChild(selection);
     }
 
-    figherTwo(fighter, weapon){
+    figherTwo(fighter, weapon) {
         const teamTwo = document.getElementById('second-fighter');
         const selection = document.createElement('div');
         //insert fighter and weapon into selection
@@ -83,12 +78,42 @@ class UI {
         teamTwo.appendChild(selection);
     }
 
+    alert(message, type) {
+        //remove any current alerts
+        if (document.querySelector('.alert') !== null) {
+            document.querySelector('.alert').remove();
+        }
+
+        //create alert message block
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert ${type}`;
+        
+        //fill in message
+        alertDiv.appendChild(document.createTextNode(message));
+
+        //select location for alert
+        const addFighter = document.getElementById('add-fighter');
+        const inputDiv = document.getElementById('input-div');
+
+        //insert alert message above input div inside add fighter form
+        addFighter.insertBefore(alertDiv, inputDiv);
+        
+        //timeout alert
+        setTimeout(function() {
+            //check if alert still exists before trying to remove alert to stop error from being thrown
+            if (document.querySelector('.alert') !== null) {
+                document.querySelector('.alert').remove();
+            }
+        }, 3500);
+    }
+    
+    //Add alert for not enough fighters
     
 }
 
 
 
-
+//Randomizers
 class Random {
     //Random Weapon Selection function
     //random selection from 0 to 6 using if statement to filter between options of Blue/Red/Shield/Ranged/Pole/FightersChoice
@@ -127,12 +152,64 @@ class Random {
 }
 
 
-//Notes: Object with keys  
-//Call the Object.keys(object) method to get an array of the object's keys
-//Use the Math.floor() and Math.random() functions to get a random index of the array
-//Use the random index to access one of the object's properties.
+
+//Local Storage
+class Store {
+    //retrieve fighters
+    static retrieveFighters() {
+        //create fighterObject
+        let fighterObject = {};
+
+        //check if fighterObject exists in LS
+        if(localStorage.getItem('fighterObject') === null) {
+            fighterObject = {'This': 'doesn\'t exist'};
+        } else {
+           return fighterObject = JSON.parse(localStorage.getItem('fighterObject'));
+        }
+    }
+
+    //display fighters
+        //USE Object.entries()
+    static displayFighters() {
+        //get stored fighterObject
+        const fighterObject = Store.retrieveFighters();
+        
+        //instantiate UI
+        const ui = new UI();
+
+        //check for object properties, display if not null
+        if (fighterObject != null || fighterObject != undefined) {
+            //display each fighter and rank using Object.entries()
+            for (const [key, value] of Object.entries(fighterObject)) {
+                ui.addFighterToList(`${key}: ${value}`);
+            }
+        }
+    }
+
+    //add fighter to storage
+    //remove fighter from storage
 
 
+    //update stored fighterObject
+    static updateStorage() {
+        localStorage.setItem('fighterObject', JSON.stringify(fighterObject));
+    }
+
+
+}
+
+
+
+//Load fighters and UI from storage event for DOM
+document.addEventListener('DOMContentLoaded', (event) => {
+    Store.displayFighters();
+    console.log('DOM fully loaded and parsed');
+});
+
+
+    let fighterObject = Store.retrieveFighters();
+
+///CURRENTLY WORKING ON DISPLAYING correctly and creating fighterObject
 
 
 
@@ -191,7 +268,7 @@ document.getElementById('generate-fight').addEventListener('submit', function(e)
 document.getElementById('add-fighter').addEventListener('submit', function(e){
     //instantiate ui
     const ui = new UI();
-    //instantiate ui
+    //instantiate fighter
     const fighter = new Fighter();
 
     //get fighter and rank
@@ -202,12 +279,26 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
 
     //add new fighter to fighter object
     //check if fields are both entered
-    if (newFighter === '' || rank === '') {
-        console.log('please fill in all fields')
+     //Add alert for not enough fighters
+    
+    //Add alert for fighter added
+    //Add alert for fighter removed
+    if (newFighter === '') {
+        ui.alert('Please fill in fighter\'s name.', 'failure');
+    } else if (rank === 'Select Fighter Rank') {
+        ui.alert('Please select a rank.', 'failure');  
     } else {
+        //add new fighter to object
         fighter.addFighter(newFighter, rank);
+        //display new fighter
         ui.addFighterToList(newFighter, rank);
+        //update storage
+        Store.updateStorage();
+        //reset user input
         ui.clearFields();
+        //display message success
+        ui.alert(`${newFighter} added to fighter list.`, 'success');
+        console.log('fighter added');
     }
     
     e.preventDefault();
@@ -219,7 +310,19 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
 document.getElementById('fighter-list').addEventListener('click', function(e){
     //instantiate ui
     const ui = new UI();
+    //instantiate fighter
+    const fighter = new Fighter();
+    //instantiate store
+    const store = new Store();
+    
+    //delete fighter from object
+    fighter.removeFighter(e.target);
+    //delete fighter from ui list
     ui.deleteFighter(e.target);
+    //update storage
+    store.updateStorage();
+    //display message success
+    ui.alert('Fighter removed from fighter list.', 'success');
 })
 
 
@@ -247,7 +350,7 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     //>>>WANTS<<<
 //Format fighter name and rank to be capitalized and uniform
 
-//Save Fighters to local
+//Save Fighters to local     CURRENTLY WORKING ON THIS
     //stringify JSON/fighterArray
     //save fighter array to local storage API
     //requires a setup with parsing the JSON
