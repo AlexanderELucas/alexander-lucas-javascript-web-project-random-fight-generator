@@ -38,8 +38,20 @@
         </div>
     </div>
 
-    <!-- generate fight button -->
+
+    <!-- generate fight -->
     <form id="generate-fight" class="container">    
+        <!-- battle selection dropdown -->
+        <div id="input-div" class="mb-3">
+            <select id="battle" class="form-select">
+                <option selected>Select Battle</option>
+                <option value=1>1v1</option>
+                <option value=2>2v2</option>
+                <option value=3>3v1</option>
+                <option value=4>Full Battle</option>
+            </select>
+        </div>
+        <!-- generate fight button -->
         <div class="d-grid gap-2 m-1">
             <button type="submit" class="btn btn-primary">Generate Fight</button>
         </div>

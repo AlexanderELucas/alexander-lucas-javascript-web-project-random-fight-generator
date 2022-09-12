@@ -14,6 +14,7 @@ class Fighter {
             delete fighterObject[fighterName];
             console.log(fighterName);
             console.log(fighterObject)
+            console.log('fighter was removed');
         }
     }
 
@@ -21,6 +22,16 @@ class Fighter {
 
 //Used Traversey's Todo list guide to get this list to work correctly
 class UI {
+    //set first letter of fighter name to capital and the remaining to lowercase
+    setName(fighterName) {
+        //return first capitalized remaining lowercased
+        let uniformName = fighterName.toLowerCase();
+
+        return uniformName.charAt(0).toUpperCase() + uniformName.slice(1)
+    }
+    
+    
+    
     addFighterToList(fighter, rank){
         const fighterList = document.getElementById('fighter-list');
         const row = document.createElement('tr');
@@ -149,6 +160,38 @@ class Random {
         //return selected fighter
         return selectedFighter;
     }
+
+    //Battle selection
+
+
+    //1v1    selection value 1
+    battleOne() {
+        //check if 2 or more fighters are on list
+        //randomize team one
+        //randomize team two
+    }
+
+    //2v2   selection value 2
+    battleTwo() {
+        //check if 4 or more fighters are on list
+        //randomize team one
+        //randomize team two
+
+    }
+    //3v1   selection value 3
+    battleThree() {
+        //check if 4 or more fighters are on list
+        //randomize team one
+        //randomize team two
+
+    }
+    //Full Battle Half v Half   selection value 4
+    battleFour(){
+        //check if 2 or more fighters are on list
+        // randomize team one for half fighterObject.length
+        // randomize team two for half fighterObject.length
+
+    }
 }
 
 
@@ -181,7 +224,7 @@ class Store {
         if (fighterObject != null || fighterObject != undefined) {
             //display each fighter and rank using Object.entries()
             for (const [key, value] of Object.entries(fighterObject)) {
-                ui.addFighterToList(`${key}: ${value}`);
+                ui.addFighterToList(`${key}`, `${value}`);
             }
         }
     }
@@ -207,9 +250,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
-    let fighterObject = Store.retrieveFighters();
+let fighterObject = Store.retrieveFighters();
 
-///CURRENTLY WORKING ON DISPLAYING correctly and creating fighterObject
 
 
 
@@ -273,7 +315,7 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
 
     //get fighter and rank
     const
-        newFighter = document.getElementById('fighter').value,
+        newFighter = ui.setName(document.getElementById('fighter').value);
         rank = document.getElementById('rank').value;
 
 
@@ -288,19 +330,24 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
     } else if (rank === 'Select Fighter Rank') {
         ui.alert('Please select a rank.', 'failure');  
     } else {
-        //add new fighter to object
-        fighter.addFighter(newFighter, rank);
-        //display new fighter
-        ui.addFighterToList(newFighter, rank);
-        //update storage
-        Store.updateStorage();
-        //reset user input
-        ui.clearFields();
-        //display message success
-        ui.alert(`${newFighter} added to fighter list.`, 'success');
-        console.log('fighter added');
+        //check if fighter is already on list
+        if (fighterObject.hasOwnProperty(newFighter)) {
+            ui.alert(`${newFighter} is already on the list`, 'failure');
+            ui.clearFields();
+        } else {
+            //add new fighter to object
+            fighter.addFighter(newFighter, rank);
+            //display new fighter
+            ui.addFighterToList(newFighter, rank);
+            //update storage
+            Store.updateStorage();
+            //reset user input
+            ui.clearFields();
+            //display message success
+            ui.alert(`${newFighter} added to fighter list.`, 'success');
+            console.log('fighter added');
+        }
     }
-    
     e.preventDefault();
     });
 
@@ -312,17 +359,20 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     const ui = new UI();
     //instantiate fighter
     const fighter = new Fighter();
-    //instantiate store
-    const store = new Store();
     
+    //track which fighter was removed to display in message
+    let fighterName = e.target.parentElement.previousElementSibling.previousElementSibling.textContent;
     //delete fighter from object
     fighter.removeFighter(e.target);
     //delete fighter from ui list
     ui.deleteFighter(e.target);
     //update storage
-    store.updateStorage();
+    Store.updateStorage();
+    
+
+
     //display message success
-    ui.alert('Fighter removed from fighter list.', 'success');
+    ui.alert(`${fighterName} was removed from fighter list.`, 'success');
 })
 
 
@@ -348,9 +398,11 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
 
 
     //>>>WANTS<<<
-//Format fighter name and rank to be capitalized and uniform
+//Format fighter name and rank to be capitalized and uniform   COMPLETED
+    //fighter name is now capitalized
+    //ranks are uniform from dropdown
 
-//Save Fighters to local     CURRENTLY WORKING ON THIS
+//Save Fighters to local     COMPLETED
     //stringify JSON/fighterArray
     //save fighter array to local storage API
     //requires a setup with parsing the JSON
@@ -362,5 +414,9 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     //
 
 //Random team size selection
+    //1v1
+    //2v2
+    //3v1
+    //HalfvHalf
 
 //tournament
