@@ -57,35 +57,40 @@ class UI {
     }
 
     clearFight() {
-        const teamOne = document.getElementById('first-fighter');
-        const teamTwo = document.getElementById('second-fighter');
-        let teamOneNode = document.getElementById('fighter-one');
-        let teamTwoNode = document.getElementById('fighter-two');
-        teamOne.removeChild(teamOneNode);
-        teamTwo.removeChild(teamTwoNode);
+        const teamOne = document.getElementById('first-team');
+        const teamTwo = document.getElementById('second-team');
+        
+        //Removes all fighters from Team One display
+        while (teamOne.firstChild) {
+            teamOne.removeChild(teamOne.firstChild);
+        }
+        //Removes all fighters from Team Two display
+        while (teamTwo.firstChild) {
+            teamTwo.removeChild(teamTwo.firstChild);
+        }
     }
 
-    figherOne(fighter, weapon){
-        const teamOne = document.getElementById('first-fighter');
+    teamOneFighter(fighter, weapon){
+        const teamOne = document.getElementById('first-team');
         const selection = document.createElement('div');
         //insert fighter and weapon into selection
         selection.innerHTML = `
             <h1>${fighter}</h1>
             <h1>${weapon}</h1>
             `;
-            selection.setAttribute('id','fighter-one')
+            selection.setAttribute('class','fighter')
         teamOne.appendChild(selection);
     }
 
-    figherTwo(fighter, weapon) {
-        const teamTwo = document.getElementById('second-fighter');
+    teamTwoFighter(fighter, weapon) {
+        const teamTwo = document.getElementById('second-team');
         const selection = document.createElement('div');
         //insert fighter and weapon into selection
         selection.innerHTML = `
             <h1>${fighter}</h1>
             <h1>${weapon}</h1>
             `;
-        selection.setAttribute('id','fighter-two')
+        selection.setAttribute('class','fighter')
         teamTwo.appendChild(selection);
     }
 
@@ -142,7 +147,7 @@ class Random {
         } else if (randomSelection < 5) {
             return 'POLE';
         } else {
-            return 'Fighter\'s Choice';
+            return 'ANY';
         }
     }
 
@@ -162,34 +167,103 @@ class Random {
     }
 
     //Battle selection
-
-
     //1v1    selection value 1
-    battleOne() {
-        //check if 2 or more fighters are on list
-        //randomize team one
-        //randomize team two
+    oneVOne() {
+        //instantiate UI
+        const ui = new UI();
+
+        
+
+        //check if enough fighters exist
+        let fighterArray = Object.keys(fighterObject)
+        if (fighterArray.length > 1) {
+            //clear previous fight
+            ui.clearFight();
+            
+            //randomize team one
+            ui.teamOneFighter(this.fighter(fighterArray), this.weapon());
+            
+            //randomize team two
+            ui.teamTwoFighter(this.fighter(fighterArray), this.weapon());
+        } else {
+            ui.alert('Not enough fighters', 'failure');
+        }
     }
 
-    //2v2   selection value 2
-    battleTwo() {
-        //check if 4 or more fighters are on list
-        //randomize team one
-        //randomize team two
+    //2v1   selection value 2
+    twoVOne() {
+        //instantiate UI
+        const ui = new UI();
 
+        
+
+        //check if enough fighters exist
+        let fighterArray = Object.keys(fighterObject)
+        if (fighterArray.length > 2) {
+            //clear previous fight
+            ui.clearFight();
+            
+            //randomize team one
+            for (let i = 0; i < 2; i++) {
+                ui.teamOneFighter(this.fighter(fighterArray), this.weapon());
+            }
+            
+            //randomize team two
+            ui.teamTwoFighter(this.fighter(fighterArray), this.weapon());
+        } else {
+            ui.alert('Not enough fighters', 'failure');
+        }
     }
-    //3v1   selection value 3
-    battleThree() {
-        //check if 4 or more fighters are on list
-        //randomize team one
-        //randomize team two
+    //2v2   selection value 3
+    twoVTwo() {
+        //instantiate UI
+        const ui = new UI();
+
+        //check if enough fighters exist
+        let fighterArray = Object.keys(fighterObject)
+        if (fighterArray.length > 3) {
+            //clear previous fight
+            ui.clearFight(); 
+
+            //randomize team one
+            for (let i = 0; i < 2; i++) {
+                ui.teamOneFighter(this.fighter(fighterArray), this.weapon());
+            }
+            //randomize team two
+            for (let i = 0; i < 2; i++) {
+                ui.teamTwoFighter(this.fighter(fighterArray), this.weapon());
+            }
+        } else {
+            ui.alert('Not enough fighters', 'failure');
+        }
 
     }
     //Full Battle Half v Half   selection value 4
-    battleFour(){
-        //check if 2 or more fighters are on list
-        // randomize team one for half fighterObject.length
-        // randomize team two for half fighterObject.length
+    fullBattle(){
+        let teamSize = Math.floor(Object.keys(fighterObject).length / 2);
+        
+        //instantiate UI
+        const ui = new UI();
+
+        
+
+        //check if enough fighters exist
+        let fighterArray = Object.keys(fighterObject)
+        if (fighterArray.length > 3) {
+            //clear previous fight
+            ui.clearFight();
+
+            //randomize team one
+            for (let i = 0; i < teamSize; i++) {
+                ui.teamOneFighter(this.fighter(fighterArray), this.weapon());
+            }
+            //randomize team two
+            for (let i = 0; i < teamSize; i++) {
+                ui.teamTwoFighter(this.fighter(fighterArray), this.weapon());
+            }
+        } else {
+            ui.alert('Not enough fighters', 'failure');
+        }
 
     }
 }
@@ -279,27 +353,46 @@ document.getElementById('generate-fight').addEventListener('submit', function(e)
     const random = new Random();
     //instantiate ui
     const ui = new UI();
-    //create array of fighterObject keys
-    let fighterArray = Object.keys(fighterObject);
+
+    //check battle selection
+    let battleType = document.getElementById('battle').value;
     
-    if (fighterArray.length > 1) {
-        //clear previous fight
-        ui.clearFight();
-        
-        //randomize fighter one and display
-        ui.figherOne(random.fighter(fighterArray), random.weapon());
-        //randomize fighter two and display
-        ui.figherTwo(random.fighter(fighterArray), random.weapon());
-        
-        
-        // random.fighter(fighterArray);
-        // random.weapon();
-        // random.fighter(fighterArray);
-        // random.weapon();
-    } else {
-        //not enough fighters for generated fight alert
-        console.log("You need at least 2 fighters") 
+    //generate selected battle
+    if (battleType == 0) {
+        ui.alert('Please select a battle type', 'failure');
+    } else if (battleType == 1) {
+        random.oneVOne();
+    } else if (battleType == 2) {
+        random.twoVOne();
+    } else if (battleType == 3) {
+        random.twoVTwo();
+    } else if (battleType == 4) {
+        random.fullBattle();
     }
+
+
+
+
+    // if (fighterArray.length > 1) {
+    //     //clear previous fight
+        
+       
+
+    //     // //randomize fighter one and display
+    //     // ui.fighterOne(random.fighter(fighterArray), random.weapon());
+        
+    //     // //randomize fighter two and display
+    //     // ui.fighterTwo(random.fighter(fighterArray), random.weapon());
+        
+        
+    //     // random.fighter(fighterArray);
+    //     // random.weapon();
+    //     // random.fighter(fighterArray);
+    //     // random.weapon();
+    // } else {
+    //     //not enough fighters for generated fight alert
+    //     console.log("You need at least 2 fighters") 
+    // }
     e.preventDefault();
     });
 
@@ -321,10 +414,7 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
 
     //add new fighter to fighter object
     //check if fields are both entered
-     //Add alert for not enough fighters
-    
-    //Add alert for fighter added
-    //Add alert for fighter removed
+    //Add alert for not enough fighters
     if (newFighter === '') {
         ui.alert('Please fill in fighter\'s name.', 'failure');
     } else if (rank === 'Select Fighter Rank') {
@@ -343,7 +433,7 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
             Store.updateStorage();
             //reset user input
             ui.clearFields();
-            //display message success
+            //display alert message for fighter add success
             ui.alert(`${newFighter} added to fighter list.`, 'success');
             console.log('fighter added');
         }
@@ -370,8 +460,7 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     Store.updateStorage();
     
 
-
-    //display message success
+    //Display alert message for fighter removal success
     ui.alert(`${fighterName} was removed from fighter list.`, 'success');
 })
 
@@ -413,10 +502,10 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     //Choose team size
     //
 
-//Random team size selection
+//Random team size selection    CURRENTLY WORKING ON
     //1v1
+    //2v1
     //2v2
-    //3v1
     //HalfvHalf
 
 //tournament

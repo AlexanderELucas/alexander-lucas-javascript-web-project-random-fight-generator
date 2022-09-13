@@ -16,8 +16,8 @@
 
     <!-- Random fight output -->
     <div id="random-fight">
-        <div id="first-fighter">
-            <div id="fighter-one">
+        <div id="first-team">
+            <div class="fighter">
                 <!-- first fighters name -->
                 <h1>Fighter 1</h1>
                 <!-- first fighters weapons -->
@@ -28,8 +28,8 @@
             <!-- VS -->
             <h1>VS</h1>
         </div>
-        <div id="second-fighter">
-            <div id="fighter-two">
+        <div id="second-team">
+            <div class="fighter">
                 <!-- first fighters name -->
                 <h1>Fighter 2</h1>
                 <!-- first fighters weapons -->
@@ -42,12 +42,12 @@
     <!-- generate fight -->
     <form id="generate-fight" class="container">    
         <!-- battle selection dropdown -->
-        <div id="input-div" class="mb-3">
+        <div id="battle-div" class="mb-3">
             <select id="battle" class="form-select">
-                <option selected>Select Battle</option>
+                <option value=0 selected>Select Battle</option>
                 <option value=1>1v1</option>
-                <option value=2>2v2</option>
-                <option value=3>3v1</option>
+                <option value=2>2v1</option>
+                <option value=3>2v2</option>
                 <option value=4>Full Battle</option>
             </select>
         </div>

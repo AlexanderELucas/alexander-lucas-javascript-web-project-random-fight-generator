@@ -10,7 +10,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 30px;
+    margin: 10px;
+    max-height: 40vh;
     margin-bottom: 5px;
     border: 5px solid red;
 }
@@ -34,7 +35,7 @@ body {
 }
 
 #fighter-table {
-    max-height: 30vh;
+    max-height: 45vh;
     overflow-x: hidden;
     
 }
@@ -45,18 +46,10 @@ body {
     
 }
 
-#fighter-one {
+.fighter {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
-
-#team-two {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    
-}
-
 
 
 
