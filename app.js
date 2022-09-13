@@ -102,17 +102,19 @@ class UI {
 
         //create alert message block
         const alertDiv = document.createElement('div');
-        alertDiv.className = `alert ${type}`;
-        
+        alertDiv.className = `alert ${type} fixed-top`;
+        //alertDiv.className = 'sticky-top';
+        // alertDiv.className = 'position-absolute';
+
         //fill in message
         alertDiv.appendChild(document.createTextNode(message));
 
         //select location for alert
-        const addFighter = document.getElementById('add-fighter');
-        const inputDiv = document.getElementById('input-div');
+        const wrapper = document.getElementById('wrapper');
+        const fightDiv = document.getElementById('random-fight');
 
         //insert alert message above input div inside add fighter form
-        addFighter.insertBefore(alertDiv, inputDiv);
+        wrapper.insertBefore(alertDiv, fightDiv);
         
         //timeout alert
         setTimeout(function() {
@@ -462,6 +464,7 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
 
     //Display alert message for fighter removal success
     ui.alert(`${fighterName} was removed from fighter list.`, 'success');
+    e.preventDefault();
 })
 
 
@@ -496,16 +499,16 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     //save fighter array to local storage API
     //requires a setup with parsing the JSON
 
-//Choose which input fighters to randomly select from
+//Choose which input fighters to randomly select from          INCOMPLETE
     //push selected fighter from fighter array to selectedFighterArray
 
     //Choose team size
     //
 
-//Random team size selection    CURRENTLY WORKING ON
+//Random team size selection    COMPLETED
     //1v1
     //2v1
     //2v2
     //HalfvHalf
 
-//tournament
+//tournament   INCOMPLETE

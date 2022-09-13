@@ -13,93 +13,99 @@
     <title>Random Fight Generator</title>
 </head>
 <body>
-
-    <!-- Random fight output -->
-    <div id="random-fight">
-        <div id="first-team">
-            <div class="fighter">
-                <!-- first fighters name -->
-                <h1>Fighter 1</h1>
-                <!-- first fighters weapons -->
-                <h1>Weapon</h1>
+    <div id="wrapper">
+        <!-- Random fight output -->
+        <div id="random-fight">
+            <div id="team-one">
+                <h1>TEAM ONE</h1>
+            </div>
+            <div id="first-team">
+                <div class="fighter">
+                    <!-- first fighters name -->
+                    <h1>Fighter 1</h1>
+                    <!-- first fighters weapons -->
+                    <h1>Weapon</h1>
+                </div>
+            </div>
+            <div id="vs">
+                <!-- VS -->
+                <h1>VS</h1>
+            </div>
+            <div id="team-two">
+                <h1>TEAM TWO</h1>
+            </div>
+            <div id="second-team">
+                <div class="fighter">
+                    <!-- first fighters name -->
+                    <h1>Fighter 2</h1>
+                    <!-- first fighters weapons -->
+                    <h1>Weapon</h1>
+                </div>
             </div>
         </div>
-        <div id="vs">
-            <!-- VS -->
-            <h1>VS</h1>
-        </div>
-        <div id="second-team">
-            <div class="fighter">
-                <!-- first fighters name -->
-                <h1>Fighter 2</h1>
-                <!-- first fighters weapons -->
-                <h1>Weapon</h1>
+
+
+        <!-- generate fight -->
+        <form id="generate-fight" class="container">    
+            <!-- battle selection dropdown -->
+            <div id="battle-div" class="mb-3">
+                <select id="battle" class="form-select">
+                    <option value=0 selected>Select Battle</option>
+                    <option value=1>1v1</option>
+                    <option value=2>2v1</option>
+                    <option value=3>2v2</option>
+                    <option value=4>Full Battle</option>
+                </select>
             </div>
+            <!-- generate fight button -->
+            <div class="d-grid gap-2 m-1">
+                <button type="submit" class="btn btn-primary">Generate Fight</button>
+            </div>
+        </form>
+        
+        
+        <!-- add new fighter form -->
+        <form id="add-fighter" class="container">
+            <div id="input-div" class="mb-3">
+                <label for="fighter" class="form-label">Add Fighter</label>
+                <input id="fighter" class="form-control" type="text" placeholder="Enter Fighter Name"></input>
+                <!-- rank input field -->
+                <!-- <input id="rank" class="form-control mt-2" type="text" placeholder="Enter Fighter Rank"></input> -->
+                <!-- rank dropdown -->
+                <select id="rank" class="form-select">
+                    <option selected>Select Fighter Rank</option>
+                    <option value="Low Recruit">Low Recruit</option>
+                    <option value="High Recruit">High Recruit</option>
+                    <option value="Low Initiate">Low Initiate</option>
+                    <option value="High Initiate">High Initiate</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Defender">Defender</option>
+                    <option value="Knight">Knight</option>
+                    <option value="Warden">Warden</option>
+                    <option value="Keeper">Keeper</option>
+                </select>
+            </div>
+            <div class="d-grid gap-2 m-1">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <!-- list of currently added fighters -->
+        
+        <div class="wrapper container" id="fighter-table">
+            <table class="table overflow-scroll">
+                <thead>
+                    <tr>
+                        <th>Fighter</th>
+                        <th>Rank</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="fighter-list">
+                    <!-- fighter names and ranks get listed here -->
+                </tbody>
+            </table>
         </div>
-    </div>
-
-
-    <!-- generate fight -->
-    <form id="generate-fight" class="container">    
-        <!-- battle selection dropdown -->
-        <div id="battle-div" class="mb-3">
-            <select id="battle" class="form-select">
-                <option value=0 selected>Select Battle</option>
-                <option value=1>1v1</option>
-                <option value=2>2v1</option>
-                <option value=3>2v2</option>
-                <option value=4>Full Battle</option>
-            </select>
         </div>
-        <!-- generate fight button -->
-        <div class="d-grid gap-2 m-1">
-            <button type="submit" class="btn btn-primary">Generate Fight</button>
-        </div>
-    </form>
-    
-    
-    <!-- add new fighter form -->
-    <form id="add-fighter" class="container">
-        <div id="input-div" class="mb-3">
-            <label for="fighter" class="form-label">Add Fighter</label>
-            <input id="fighter" class="form-control" type="text" placeholder="Enter Fighter Name"></input>
-            <!-- rank input field -->
-            <!-- <input id="rank" class="form-control mt-2" type="text" placeholder="Enter Fighter Rank"></input> -->
-            <!-- rank dropdown -->
-            <select id="rank" class="form-select">
-                <option selected>Select Fighter Rank</option>
-                <option value="Low Recruit">Low Recruit</option>
-                <option value="High Recruit">High Recruit</option>
-                <option value="Low Initiate">Low Initiate</option>
-                <option value="High Initiate">High Initiate</option>
-                <option value="Accepted">Accepted</option>
-                <option value="Defender">Defender</option>
-                <option value="Knight">Knight</option>
-                <option value="Warden">Warden</option>
-                <option value="Keeper">Keeper</option>
-            </select>
-        </div>
-        <div class="d-grid gap-2 m-1">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-    <!-- list of currently added fighters -->
-    
-    <div class="wrapper container" id="fighter-table">
-        <table class="table overflow-scroll">
-            <thead>
-                <tr>
-                    <th>Fighter</th>
-                    <th>Rank</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="fighter-list">
-                <!-- fighter names and ranks get listed here -->
-            </tbody>
-        </table>
-    </div>
-
 
 
 
