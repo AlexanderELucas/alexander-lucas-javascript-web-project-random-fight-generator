@@ -324,6 +324,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 //create fighterObject in 
 let fighterObject = Store.retrieveFighters();
+if (fighterObject == undefined) {
+    fighterObject = {};
+}
 
 
 // EVENT LISTENERS
