@@ -103,8 +103,6 @@ class UI {
         //create alert message block
         const alertDiv = document.createElement('div');
         alertDiv.className = `alert ${type} fixed-top`;
-        //alertDiv.className = 'sticky-top';
-        // alertDiv.className = 'position-absolute';
 
         //fill in message
         alertDiv.appendChild(document.createTextNode(message));
@@ -318,33 +316,17 @@ class Store {
 }
 
 
-
 //Load fighters and UI from storage event for DOM
 document.addEventListener('DOMContentLoaded', (event) => {
     Store.displayFighters();
     console.log('DOM fully loaded and parsed');
 });
 
-
+//create fighterObject in 
 let fighterObject = Store.retrieveFighters();
 
 
-
-
-
-
-
-
-
-
-
 // EVENT LISTENERS
-
-
-
-
-
-
 
 
 //Event Listeners for Random Fight Generation
@@ -372,31 +354,8 @@ document.getElementById('generate-fight').addEventListener('submit', function(e)
         random.fullBattle();
     }
 
-
-
-
-    // if (fighterArray.length > 1) {
-    //     //clear previous fight
-        
-       
-
-    //     // //randomize fighter one and display
-    //     // ui.fighterOne(random.fighter(fighterArray), random.weapon());
-        
-    //     // //randomize fighter two and display
-    //     // ui.fighterTwo(random.fighter(fighterArray), random.weapon());
-        
-        
-    //     // random.fighter(fighterArray);
-    //     // random.weapon();
-    //     // random.fighter(fighterArray);
-    //     // random.weapon();
-    // } else {
-    //     //not enough fighters for generated fight alert
-    //     console.log("You need at least 2 fighters") 
-    // }
     e.preventDefault();
-    });
+});
 
 
 
@@ -471,24 +430,6 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //>>>WANTS<<<
 //Format fighter name and rank to be capitalized and uniform   COMPLETED
     //fighter name is now capitalized
@@ -509,6 +450,6 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
     //1v1
     //2v1
     //2v2
-    //HalfvHalf
+    //Half v Half
 
 //tournament   INCOMPLETE
