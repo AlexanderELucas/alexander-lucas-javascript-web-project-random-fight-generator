@@ -1,5 +1,3 @@
-//create fighterObject to store fighters and ranks
-
 //methods to add fighters and remove fighters from fighterObject
 class Fighter {
     //adds fighter to object
@@ -7,6 +5,7 @@ class Fighter {
         fighterObject[newFighter] = rank;
         console.log(fighterObject);
     }
+
     //removes fighter from object
     removeFighter(target) {
         if(target.className === 'remove'){
@@ -20,18 +19,17 @@ class Fighter {
 
 }
 
-//Used Traversey's Todo list guide to get this list to work correctly
+//Used Traversey's Todo/book list guide for reference https://www.udemy.com/course/modern-javascript-from-the-beginning/learn/lecture/8762264
 class UI {
-    //set first letter of fighter name to capital and the remaining to lowercase
+    //Set first letter of fighter name to capital and the remaining to lowercase
     setName(fighterName) {
         //return first capitalized remaining lowercased
         let uniformName = fighterName.toLowerCase();
 
         return uniformName.charAt(0).toUpperCase() + uniformName.slice(1)
     }
-    
-    
-    
+
+    //Adds fighter
     addFighterToList(fighter, rank){
         const fighterList = document.getElementById('fighter-list');
         const row = document.createElement('tr');
@@ -44,18 +42,21 @@ class UI {
         fighterList.appendChild(row);
     }
 
+    //Removes fighter
     deleteFighter(target){
         if(target.className === 'remove'){
             target.parentElement.parentElement.remove();
         }
     }
 
+    //Resets input fields to original state
     clearFields() {
         document.getElementById('fighter').value = '';
         //resets rank field to "select fighter rank"
         document.getElementById('rank').value = 'Select Fighter Rank';
     }
 
+    //Clears previous fight
     clearFight() {
         const teamOne = document.getElementById('first-team');
         const teamTwo = document.getElementById('second-team');
@@ -70,6 +71,7 @@ class UI {
         }
     }
 
+    //Adds fighters for team one
     teamOneFighter(fighter, weapon){
         const teamOne = document.getElementById('first-team');
         const selection = document.createElement('div');
@@ -82,6 +84,7 @@ class UI {
         teamOne.appendChild(selection);
     }
 
+    //Adds fighters for team two
     teamTwoFighter(fighter, weapon) {
         const teamTwo = document.getElementById('second-team');
         const selection = document.createElement('div');
@@ -94,6 +97,7 @@ class UI {
         teamTwo.appendChild(selection);
     }
 
+    //Display alert messages
     alert(message, type) {
         //remove any current alerts
         if (document.querySelector('.alert') !== null) {
@@ -121,19 +125,15 @@ class UI {
                 document.querySelector('.alert').remove();
             }
         }, 3500);
-    }
-    
-    //Add alert for not enough fighters
-    
+    }    
 }
-
 
 
 //Randomizers
 class Random {
     //Random Weapon Selection function
-    //random selection from 0 to 6 using if statement to filter between options of Blue/Red/Shield/Ranged/Pole/FightersChoice
-    //return fighters selected weapon
+    //Random selection from 0 to 6 using if statement to filter between options of Blue/Red/Shield/Ranged/Pole/FightersChoice
+    //Return fighters selected weapon
     weapon() {
         let randomSelection = Math.floor(Math.random()*6);
         if (randomSelection < 1) {
@@ -152,9 +152,9 @@ class Random {
     }
 
     //Random Fighter Selection
-    //uses Object.key(fighters) to create array 
-    //random floor selection from 0 to fighterArray.length to select fighter
-    //return fighters names and remove first fighter from fighterArray map
+    //Uses Object.key(fighters) to create array 
+    //Random floor selection from 0 to fighterArray.length to select fighter
+    //Return fighters names and remove first fighter from fighterArray map
     fighter(fighterArray) {
         //randomly select fighter
         let randomSelection = Math.floor(Math.random() * fighterArray.length);
@@ -171,8 +171,6 @@ class Random {
     oneVOne() {
         //instantiate UI
         const ui = new UI();
-
-        
 
         //check if enough fighters exist
         let fighterArray = Object.keys(fighterObject)
@@ -214,6 +212,7 @@ class Random {
             ui.alert('Not enough fighters', 'failure');
         }
     }
+
     //2v2   selection value 3
     twoVTwo() {
         //instantiate UI
@@ -238,6 +237,7 @@ class Random {
         }
 
     }
+
     //Full Battle Half v Half   selection value 4
     fullBattle(){
         let teamSize = Math.floor(Object.keys(fighterObject).length / 2);
@@ -269,10 +269,9 @@ class Random {
 }
 
 
-
 //Local Storage
 class Store {
-    //retrieve fighters
+    //Retrieve fighters
     static retrieveFighters() {
         //create fighterObject
         let fighterObject = {};
@@ -285,12 +284,12 @@ class Store {
         }
     }
 
-    //display fighters
+    //Display fighters
         //USE Object.entries()
     static displayFighters() {
         //get stored fighterObject
         const fighterObject = Store.retrieveFighters();
-        
+
         //instantiate UI
         const ui = new UI();
 
@@ -303,11 +302,8 @@ class Store {
         }
     }
 
-    //add fighter to storage
-    //remove fighter from storage
-
-
     //update stored fighterObject
+    //Add/Remove fighter from stored object
     static updateStorage() {
         localStorage.setItem('fighterObject', JSON.stringify(fighterObject));
     }
@@ -322,7 +318,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 });
 
-//create fighterObject in 
+//Create fighterObject based on local storage, if first time then create empty object
 let fighterObject = Store.retrieveFighters();
 if (fighterObject == undefined) {
     fighterObject = {};
@@ -336,15 +332,15 @@ if (fighterObject == undefined) {
     //uses Object.key(fighters) to create array
     //uses Random methods to select fighters and weapons
 document.getElementById('generate-fight').addEventListener('submit', function(e){
-    //instantiate random
+    //Instantiate random
     const random = new Random();
-    //instantiate ui
+    //Instantiate ui
     const ui = new UI();
 
-    //check battle selection
+    //Check battle selection
     let battleType = document.getElementById('battle').value;
     
-    //generate selected battle
+    //Generate selected battle
     if (battleType == 0) {
         ui.alert('Please select a battle type', 'failure');
     } else if (battleType == 1) {
@@ -361,23 +357,21 @@ document.getElementById('generate-fight').addEventListener('submit', function(e)
 });
 
 
-
-
 //Event Listeners for Add New Fighter
 document.getElementById('add-fighter').addEventListener('submit', function(e){
-    //instantiate ui
+    //Instantiate ui
     const ui = new UI();
-    //instantiate fighter
+    //Instantiate fighter
     const fighter = new Fighter();
 
-    //get fighter and rank
+    //Get fighter and rank
     const
         newFighter = ui.setName(document.getElementById('fighter').value);
         rank = document.getElementById('rank').value;
 
 
-    //add new fighter to fighter object
-    //check if fields are both entered
+    //Add new fighter to fighter object
+    //Check if fields are both entered
     //Add alert for not enough fighters
     if (newFighter === '') {
         ui.alert('Please fill in fighter\'s name.', 'failure');
@@ -407,22 +401,21 @@ document.getElementById('add-fighter').addEventListener('submit', function(e){
 
 
 //Event Listeners for Deleting Fighter
-    //Based of Traversey's Todo list
+    //Used Traversey's Todo/book list guide for reference https://www.udemy.com/course/modern-javascript-from-the-beginning/learn/lecture/8762264
 document.getElementById('fighter-list').addEventListener('click', function(e){
-    //instantiate ui
+    //Instantiate ui
     const ui = new UI();
-    //instantiate fighter
+    //Instantiate fighter
     const fighter = new Fighter();
     
-    //track which fighter was removed to display in message
+    //Track which fighter was removed to display in message
     let fighterName = e.target.parentElement.previousElementSibling.previousElementSibling.textContent;
-    //delete fighter from object
+    //Delete fighter from object
     fighter.removeFighter(e.target);
-    //delete fighter from ui list
+    //Delete fighter from ui list
     ui.deleteFighter(e.target);
-    //update storage
+    //Update storage
     Store.updateStorage();
-    
 
     //Display alert message for fighter removal success
     ui.alert(`${fighterName} was removed from fighter list.`, 'success');
@@ -446,13 +439,10 @@ document.getElementById('fighter-list').addEventListener('click', function(e){
 //Choose which input fighters to randomly select from          INCOMPLETE
     //push selected fighter from fighter array to selectedFighterArray
 
-    //Choose team size
-    //
-
 //Random team size selection    COMPLETED
     //1v1
     //2v1
     //2v2
     //Half v Half
 
-//tournament   INCOMPLETE
+//Tournament   INCOMPLETE
